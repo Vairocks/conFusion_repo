@@ -2,3 +2,81 @@
     margin:10px;
     padding: 10px;
 }
+
+.row-header{
+    margin:10px auto;
+    padding:0px auto;
+}
+.row-content{
+    margin:2px auto;
+    padding:10px 0px 10px 0px auto;
+    border-bottom:1px ridge;
+}
+.home-content{
+    margin:5px auto;
+    padding:10px 0px 10px 0px auto;
+    border-bottom:1px ridge;
+    
+}
+.footer{
+    background-color:#D1C4E9; 
+    margin:0px auto;
+    padding:10px 0px 10px 0px;
+}
+.jumbotron{
+    padding:70px 10px 10px 10px;
+    margin: 0px auto;
+    background: #9575CD;
+    color: floralwhite;
+
+}
+.address{
+    font-size: 80%;
+    margin: 0px;
+    color: #0f0f0f;
+}
+.nav-color{
+
+    background: rgb(96, 17, 170);
+    color: floralwhite;
+}
+
+.tab-content{
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.form-group{
+    margin:2px auto;   
+}
+.foot-color{
+    background: #9575CD;
+    color: floralwhite;
+}
+.carousel {
+    background: rgb(96, 17, 170);
+}
+.carousel-item{
+    height: 250px;
+}
+.carousel-item img {
+   position: absolute;
+   top: 0;
+   left: 0;
+   min-height:250px ;
+   max-height: 250px; 
+}
+.carousel-item p{
+    text-align: right;
+}
+#carousel-button{
+    right: 0px;
+    position: absolute;
+    bottom: 0px;
+}
+.sidePanels{
+    background: #e2e0e6;
+    border-left: 1px solid rgb(96, 17, 170);
+    border-right: 1px solid  rgb(96, 17, 170);
+    border-bottom: 1px solid rgb(96, 17, 170);
+}
