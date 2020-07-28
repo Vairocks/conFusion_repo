@@ -1,9 +1,35 @@
 import React from 'react';
+import {Card} from 'react-bootstrap';
+
+function RenderCard({item}){
+    return(
+        <Card>
+            <Card.Img class="col-12" src={item.image} alt={item.name}/>
+            <Card.Body>
+                <Card.Title>{item.name}</Card.Title>
+                {item.designation ? <Card.Subtitle>{item.designation}</Card.Subtitle> : null}
+                <Card.Text>{item.description}</Card.Text>
+            </Card.Body>
+        </Card>
+
+    );
+}
+
 
 function Home(props) {
     return(
         <div className="container">
-            <h4>Home</h4>
+            <div className="row align-items-start">
+                <div   className="col-12 col-md m-1">   
+                    <RenderCard item={props.dish}/>
+                </div>
+                <div   className="col-12 col-md m-1">
+                    <RenderCard item={props.promo}/>
+                </div>
+                <div   className="col-12 col-md m-1">
+                    <RenderCard item={props.leader}/>
+                </div>
+            </div>
         </div>
     );
 }
