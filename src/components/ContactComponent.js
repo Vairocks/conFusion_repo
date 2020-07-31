@@ -1,7 +1,25 @@
 import React from 'react';
-import {Breadcrumb,BreadcrumbItem} from 'react-bootstrap';
+import {Component} from 'react';
+import {Breadcrumb,BreadcrumbItem, Button, FormLabel, Col,Row} from 'react-bootstrap';
 import {Link} from 'react-router-dom'; 
-function Contact(props){
+import { Control, LocalForm,} from 'react-redux-form'
+
+class Contact extends Component {
+
+    constructor(props) {
+        super(props);
+
+       // this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+handleSubmit(values){
+    console.log("Current State is: "+JSON.stringify(values));
+    alert("Current State is: " +JSON.stringify(values));
+}
+
+//no need for validate saperately becuse that would be done by react-redux on our behalf
+
+render(){
     return(
         <div class="container">
             <div className="row">
@@ -61,77 +79,79 @@ function Contact(props){
             </div>
             <br/><br/>
             <div class="col-12 col-md-9">
-                <form>
-                    <div class="form-group row">
-                        <label for="firstname" class="col-md-2 col-form-label">First name</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First name"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="lastname" class="col-md-2 col-form-label">Last name</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last name"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="telnum" class="col-md-2 col-form-label">Telephone no.</label>
-                        <div class="col-5 col-sm-4 col-md-3">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                <span class="input-group-text">(</span></div>
-                                <input type="tel" class="form-control" id="areacode" name="areacode" placeholder="Areacode"/>
-                                <div class="input-group-append">
-                                <span class="input-group-text">)</span></div>
-                            </div>
-                        </div>
-                        <div class="col-7 col-sm-6 col-md-7">
-                            <input type="tel" class="form-control" id="telnum" name="telnum" placeholder="Telephone number"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="emailid" class="col-md-2 col-form-label">Email</label>
-                        <div class="col-md-10">
-                            <input type="email" class="form-control" id="emailid" name="emailid" placeholder="Email"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="form-check col-5 offset-md-2">
-                                <label for="form-check-label">
-                                <input type="checkbox" class="form-check-input" name="approve" value=""/>
-                                <strong>May we contact you?</strong>
-                            </label> 
-                        </div>
-                        <div class="col"></div>
-                        <div class="col-4">
-                            <select class="form-control">
+                <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                    <Row className="form-group">
+                        <FormLabel htmlFor="firstname" md={2}>First name</FormLabel>
+                        <Col md={10}>
+                            <Control.text model=".firstname" className="form-control" id="firstname" 
+                            name="firstname" placeholder="First name"
+                            className="form-control" />
+                        </Col>
+                    </Row>
+                    <Row className="form-group">
+                    <FormLabel htmFor="lastname" md={2}>Last name</FormLabel>
+                    <Col md={10}>
+                            <Control.text model=".lastname" className="form-control" id="lastname" 
+                            name="lastname" placeholder="Last Name"
+                            className="form-control"/>
+                        </Col>
+                    </Row>
+                    <Row className="form-group">
+                        <FormLabel htmlFor="telnum" md={2}>Contact Tel.</FormLabel>
+                        <Col md={10}>
+                            <Control.text  t model=".telnum" class="form-control" id="telnm" 
+                            name="telnum" placeholder="Tel. Number"
+                            className="form-control" />
+                        </Col>
+                    </Row>
+                    <Row className="form-group">
+                        <FormLabel htmlFor="email" md={2}>Email</FormLabel>
+                        <Col md={10}>
+                            <Control.text model=".email" className="form-control" 
+                            id="email" name="email" placeholder="Email"/>
+                        </Col>
+                    </Row>
+                    <Row className="form-group">
+                        <Col md={{size: 5, ofset: 2}}>
+                            <div className="form-check-label">
+                                <FormLabel check>
+                                    <Control.checkbox model=".agree" 
+                                    className="form-check-input" name="agree"/>{' '}
+                                    <strong>May we contact you?</strong>
+                                </FormLabel>
+                            </div> 
+                        </Col>
+                        <Col md={{size: 3, offfset: 1}}>
+                            <Control.select model=".contactType" className="form-control" name="contactType">
                                 <option>Tel.</option>
                                 <option>Email</option>
-                            </select>
-                        </div>
-                    </div>
+                            </Control.select>
+                        </Col>
+                    </Row>
+                    <Row className="form-group">
+                        <FormLabel htmlFor="message" md={2}>Your Feedback</FormLabel>
+                        <Col md={10}>
+                            <Control.textarea className="form-control" model=".message" 
+                            id="message" name="message" 
+                            placeholder="Type here" rows="12"></Control.textarea>
+                        </Col>
+                    </Row>
 
-                    <div class="form-group row">
-                        <label for="feedback" class="col-md-2 col-form-label">Your Feedback</label>
-                        <div class="col-md-10">
-                            <textarea class="form-control" id="feedback" name="Feedback" placeholder="Type here" rows="12"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="offset-md-2 col-md-10">
-                            <button type="submit" class="btn btn-primary">
+                    <Row className="form-group">
+                        <Col md={{size:10, offset:2}}>
+                            <Button type="submit" class="primary">
                                 Send Feedback
-                            </button>
-                        </div>
-                    </div>
+                            </Button>
+                        </Col>
+                    </Row>
 
 
-                </form>
+                </LocalForm>
             </div>
         </div>
      </div>
     );
+  }
 }
 
 export default Contact;
