@@ -1,6 +1,17 @@
-import React from 'react';
-import {Card,Breadcrumb,BreadcrumbItem} from 'react-bootstrap';
+import React, {Component} from 'react';
+import {Card,Breadcrumb,BreadcrumbItem,Button,Modal, FormLabel, Col,Row} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import { Control, LocalForm,Errors } from 'react-redux-form';
+
+const required = (val) => {
+    console.log(!(val) || (val.length <= 5 ));
+    return(val && val.length);
+};
+const maxLength =(len) => (val) => !(val) || (val.length <= len );
+const minLength =(len) => (val) => !(val) || (val.length >= len );
+const isNumber = (val) => !isNaN(Number(val));
+const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
 
 function RenderDish(props){
     return(
@@ -13,10 +24,33 @@ function RenderDish(props){
     </Card>
     );
 
-}   
-// props are sent as an object here {dish}
-function AllComments({comments}){
-    var comms = comments.map((commt) => {
+} 
+
+class AllComments extends Component {
+
+    constructor(props){
+        super(props);
+        
+        this.state = {
+            showModal:false
+        }
+    }
+    
+    handleSubmit(values){
+        this.setModalShow(false);
+        this.props.addComment(this.props.dishId,values.ratings,values.fullname,values.message) 
+        console.log("Current State is: "+JSON.stringify(values));
+        alert("Current State is: " +JSON.stringify(values));
+    }
+
+
+    setModalShow(intent){
+        this.setState({showModal: intent});
+    }
+
+    render(){
+
+    const comms = this.props.comments.map((commt) => {
         return (
             <div key={commt.id} className="row">
               <span className="col-6">  {commt.author} </span><span className="col-auto"></span> ,<span className="col-5"><h6>{commt.rating} <i class="fa fa-star fa-lg"></i> -*Date</h6></span>
@@ -24,21 +58,86 @@ function AllComments({comments}){
             </div>
         );
     });
+    
     return(
-        <Card>
-            <Card.Body>
-                <Card.Title>Comments</Card.Title>
-                <Card.Text className="container">{comms}</Card.Text>
+      <Card>
+        <Card.Body>
+          <Card.Title>Comment</Card.Title>
+          <Card.Text className="container">{comms}</Card.Text>     
+          <Button variant="outline-dark" onClick={() => this.setModalShow(true)}>
+          <span className="fa fa-pencil"></span> Comment</Button>
+            
+            <Modal show={this.state.showModal} onHide={() => this.setModalShow(false)}>
+              <Modal.Header className="nav-color" closeButton>
+                  <Modal.Title >Modal heading</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+
+                <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                  <Row className="form-group">
+                  <FormLabel htmlFor="ratings" md={5}>Ratings</FormLabel>
+                    <Col md={{size: 6, offfset: 1}}>
+                            <Control.select model=".ratings" defaultValue={5} className="form-control" name="ratings" id="ratings">
+                                <option>5</option>
+                                <option>4</option>
+                                <option>3</option>
+                                <option>2</option>
+                                <option>1</option>
+                            </Control.select>
+                        </Col>
+                  </Row>
+                  <Row className="form-group">
+                    <FormLabel htmlFor="fullname" >First name:</FormLabel>
+                    <Col md={9}>
+                        <Control.text model=".fullname" className="form-control" id="fullname" 
+                         name="fullname" placeholder="Your Full Name"    
+                         validators={{
+                                        required, minLength: minLength(3), maxLength: maxLength(25)
+                                    }}
+                        />
+                        <Errors
+                            className="errors"
+                            model= ".fullname"
+                            show="touched"
+                            messages={{
+                                required: 'Required',
+                                minLength: 'Must be greater than 2 characters',
+                                maxLength: 'Must be 25 characters or less'
+                                }} 
+                        />
+                    </Col>
+                  </Row>
+                  <Row className="form-group">
+                        <FormLabel htmlFor="message" md={2}>Your Comment:</FormLabel>
+                        <Col md={12}>
+                            <Control.textarea className="form-control" model=".message" 
+                            id="message" name="message" 
+                            placeholder="Type here" rows="6"></Control.textarea>
+                        </Col>
+                  </Row>
+                  <Row className="form-group">
+                        <Button variant="secondary" onClick={() => this.setModalShow(false)}>Close</Button>
+                        <Col md={{size:10, offset:2}}>
+                            <Button type="submit" class="primary" onClick={() => this.setModalShow(false)}>
+                                Send
+                            </Button>
+                        </Col>
+                    </Row>
+                    </LocalForm>
+                    </Modal.Body>
+      </Modal>
             </Card.Body>
         </Card>
         );
-
+    }
 
 }
 
     
 
-function DishDetail(props){
+function DishDetail(props)
+{
+
     if(props.dish!=null){
         return(
             <div className="container">
@@ -54,7 +153,9 @@ function DishDetail(props){
                         <RenderDish dish={props.dish}/>
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <AllComments comments={props.comments}/>
+                        <AllComments comments={props.comments} 
+                        addComment={props.addComment}
+                        dishId={props.dish.id}/>
                     </div>
                 </div>
             </div>
@@ -66,5 +167,6 @@ function DishDetail(props){
         );
     }
     }
+
     
 export default DishDetail;

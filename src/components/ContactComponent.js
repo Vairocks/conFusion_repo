@@ -112,6 +112,7 @@ render(){
                            <Errors
                                 className="errors"
                                 model= "firstname"
+                                show="touched"
                                 messages={{
                                     required: 'Required',
                                     minLength: 'Must be greater than 2 characters',
