@@ -9,6 +9,7 @@ import About from './AboutUsComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux'; 
 
+
 const mapStateToProps = state => {
   return {
     dishes: state.dishes,
@@ -70,6 +71,7 @@ render(){
   //Above the info in dishes state is passed via creating a property dishes to the MenuComponent class(i.e Menu) 
 }; 
 }
-
+// 
+     
 export default withRouter(connect(mapStateToProps)(Main));
 
