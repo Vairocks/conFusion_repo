@@ -7,7 +7,7 @@ function Header(){
             <>
                 <Navbar bg="dark" variant="dark" expand="md">
                     <div className="container">
-                        <Navbar.Brand classname="mr-auto"  href="/"><img src="../../public/logo192.svg" height="30" width="41" alt="Ristorante Con Fusion"/></Navbar.Brand>
+                        <Navbar.Brand className="mr-auto"  href="/"><img src="../../public/logo192.svg" height="30" width="41" alt="Ristorante Con Fusion"/></Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav navbar>

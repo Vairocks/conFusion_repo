@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {Card,Breadcrumb,BreadcrumbItem,Button,Modal, FormLabel, Col,Row} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { Control, LocalForm,Errors } from 'react-redux-form';
+import {Loading} from './LoadingComponent';
 
-const required = (val) => {
-    console.log(!(val) || (val.length <= 5 ));
-    return(val && val.length);
-};
+
+
+const required = (val) => (val && val.length);
 const maxLength =(len) => (val) => !(val) || (val.length <= len );
 const minLength =(len) => (val) => !(val) || (val.length >= len );
 const isNumber = (val) => !isNaN(Number(val));
@@ -52,10 +52,10 @@ class AllComments extends Component {
 
     const comms = this.props.comments.map((commt) => {
         return (
-            <div key={commt.id} className="row">
-              <span className="col-6">  {commt.author} </span><span className="col-auto"></span> ,<span className="col-5"><h6>{commt.rating} <i class="fa fa-star fa-lg"></i> -*Date</h6></span>
+            <>
+              <span className="col-6">  {commt.author} </span><span className="col-auto"></span> ,<span className="col-5"><h6>{commt.rating} <i className="fa fa-star fa-lg"></i> -*Date</h6></span>
               <p><cite>-{commt.comment}</cite></p>         
-            </div>
+            </>
         );
     });
     
@@ -117,8 +117,9 @@ class AllComments extends Component {
                   </Row>
                   <Row className="form-group">
                         <Button variant="secondary" onClick={() => this.setModalShow(false)}>Close</Button>
-                        <Col md={{size:10, offset:2}}>
-                            <Button type="submit" class="primary" onClick={() => this.setModalShow(false)}>
+                        <Col></Col>
+                        <Col >
+                            <Button type="submit" className="primary" onClick={() => this.setModalShow(false)}>
                                 Send
                             </Button>
                         </Col>
@@ -136,9 +137,26 @@ class AllComments extends Component {
     
 
 function DishDetail(props)
-{
-
-    if(props.dish!=null){
+{ 
+    if(props.isLoading) {
+        return(
+            <div className="container">
+                <div className='row'>
+                    <Loading />
+                </div>
+             </div>   
+        )
+    }
+    else if(props.errMess) {
+        return(
+            <div className="container">
+            <div className='row'>
+                <h4>{props.errMess}</h4>
+            </div>
+         </div>
+        );
+    }
+    else if(props.dish!=null){
         return(
             <div className="container">
                 <div className="row-12">
