@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import {Breadcrumb,BreadcrumbItem, Button, FormLabel, Col,Row} from 'react-bootstrap';
 import {Link} from 'react-router-dom'; 
-import { Control, LocalForm,Errors } from 'react-redux-form';
+import { Control, Form,Errors , actions } from 'react-redux-form';
 
 const required = (val) => {
     console.log(!(val) || (val.length <= 5 ));
@@ -26,6 +26,7 @@ class Contact extends Component {
 handleSubmit(values){
     console.log("Current State is: "+JSON.stringify(values));
     alert("Current State is: " +JSON.stringify(values));
+    this.props.resetFeedbackForm();
 }
 
 //no need for validate saperately becuse that would be done by react-redux on our behalf
@@ -98,7 +99,9 @@ render(){
             </div>
             <br/><br/>
             <div class="col-12 col-md-9">
-                <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                
+                
+                <Form model='feedback' onSubmit={(values) => this.handleSubmit(values)}>
                     <Row className="form-group">
                         <FormLabel htmlFor="firstname" md={2}>First name</FormLabel>
                         <Col md={10}>
@@ -223,7 +226,7 @@ render(){
                     </Row>
 
 
-                </LocalForm>
+                </Form>
             </div>
         </div>
      </div>
