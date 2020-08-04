@@ -1,6 +1,8 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
-import {Loading} from './LoadingComponent'
+import {Loading} from './LoadingComponent';
+import {baseUrl} from "../shared/baseUrl";
+
 function RenderCard({item, isLoading, errMess}){
     if(isLoading){
         return(
@@ -15,7 +17,7 @@ function RenderCard({item, isLoading, errMess}){
     else
     return(
         <Card>
-            <Card.Img class="col-12" src={item.image} alt={item.name}/>
+            <Card.Img class="col-12" src={baseUrl + item.image} alt={item.name}/>
             <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
                 {item.designation ? <Card.Subtitle>{item.designation}</Card.Subtitle> : null}
@@ -37,10 +39,10 @@ function Home(props) {
                     errMess={props.dishesErrMess}/>
                 </div>
                 <div   className="col-12 col-md m-1">
-                    <RenderCard item={props.promo} isLoading={props.dishesLoading} errMess={props.dishesErrMess}/>
+                    <RenderCard item={props.promo} isLoading={props.promosLoading} errMess={props.promosErrMess}/>
                 </div>
                 <div   className="col-12 col-md m-1">
-                    <RenderCard item={props.leader} isLoading={props.dishesLoading} errMess={props.dishesErrMess}/>
+                    <RenderCard item={props.leader} isLoading={props.promosLoading} errMess={props.promosErrMess}/>
                 </div>
             </div>
         </div>

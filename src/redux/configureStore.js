@@ -24,4 +24,8 @@ export const ConfigureStore = () => {
     return store; 
 }
 
-//combining alll the staes together to form a store and gave a reducer to each one of it
+//above all reducers are combined
+// their states thus also combined to forn a store for our app
+//the store is like that: {dishes,comments,promos,leaders,errMess,isLoading,errMess,isLoading,errMess,isloading,errMess}
+//the changing values of these store variables is like changing vales of the store which can only be done by reducer fuctions.
+//at a point of the the collective resouces and values in a store is state of the app

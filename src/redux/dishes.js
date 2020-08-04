@@ -6,8 +6,8 @@ export const Dishes = (state = {
         dishes: []
 }, action) => {
     switch(action.type) {
-        case ActionTypes.ADD_DISHES:
-        return {...state, isLoading: false, errMess: null, dishes: action.payload};
+            case ActionTypes.ADD_DISHES:
+            return {...state, isLoading: false, errMess: null, dishes: action.payload};
 
         case ActionTypes.DISHES_LOADING:
             return {...state, isLoading: true, errMess: null, dishes: []};
@@ -19,3 +19,7 @@ export const Dishes = (state = {
             return state;
     }
 }
+
+//a reducer recieves an action type and sometimes a resource in payload.
+//based on action type the reducer decides which variable/resource of store is needed to change
+//and what to do with recieved payload

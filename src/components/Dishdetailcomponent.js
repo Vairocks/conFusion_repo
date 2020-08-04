@@ -3,6 +3,7 @@ import {Card,Breadcrumb,BreadcrumbItem,Button,Modal, FormLabel, Col,Row} from 'r
 import {Link} from 'react-router-dom';
 import { Control, LocalForm,Errors } from 'react-redux-form';
 import {Loading} from './LoadingComponent';
+import {baseUrl} from "../shared/baseUrl";
 
 
 
@@ -16,7 +17,7 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val
 function RenderDish(props){
     return(
     <Card>
-        <Card.Img width="100%" src={props.dish.image} alt={props.dish.name}/>
+        <Card.Img width="100%" src={baseUrl + props.dish.image} alt={props.dish.name}/>
         <Card.Body>
             <Card.Title>{props.dish.name}</Card.Title>
             <Card.Text>{props.dish.description}</Card.Text>
@@ -38,7 +39,7 @@ class AllComments extends Component {
     
     handleSubmit(values){
         this.setModalShow(false);
-        this.props.addComment(this.props.dishId,values.ratings,values.fullname,values.message) 
+        this.props.postComment(this.props.dishId,values.ratings,values.fullname,values.message) 
         console.log("Current State is: "+JSON.stringify(values));
         alert("Current State is: " +JSON.stringify(values));
     }
@@ -76,7 +77,7 @@ class AllComments extends Component {
                 <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                   <Row className="form-group">
                   <FormLabel htmlFor="ratings" md={5}>Ratings</FormLabel>
-                    <Col md={{size: 6, offfset: 1}}>
+                     <Col md={{size: 6, offfset: 1}}>
                             <Control.select model=".ratings" defaultValue={5} className="form-control" name="ratings" id="ratings">
                                 <option>5</option>
                                 <option>4</option>
@@ -172,7 +173,7 @@ function DishDetail(props)
                     </div>
                     <div className="col-12 col-md-5 m-1">
                         <AllComments comments={props.comments} 
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         dishId={props.dish.id}/>
                     </div>
                 </div>

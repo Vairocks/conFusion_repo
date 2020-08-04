@@ -26,7 +26,7 @@ class Contact extends Component {
 handleSubmit(values){
     console.log("Current State is: "+JSON.stringify(values));
     alert("Current State is: " +JSON.stringify(values));
-    this.props.resetFeedbackForm();
+    this.props.reset();
 }
 
 //no need for validate saperately becuse that would be done by react-redux on our behalf
