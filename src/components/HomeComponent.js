@@ -2,6 +2,7 @@ import React from 'react';
 import {Card} from 'react-bootstrap';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from "../shared/baseUrl";
+import { FadeTransform} from 'react-animation-components';
 
 function RenderCard({item, isLoading, errMess}){
     if(isLoading){
@@ -16,6 +17,10 @@ function RenderCard({item, isLoading, errMess}){
     }
     else
     return(
+        <FadeTransform in 
+            transformProps={{
+                exitTransform: 'scale(0.5) translate(-50%)'
+            }}>
         <Card>
             <Card.Img class="col-12" src={baseUrl + item.image} alt={item.name}/>
             <Card.Body>
@@ -24,7 +29,7 @@ function RenderCard({item, isLoading, errMess}){
                 <Card.Text>{item.description}</Card.Text>
             </Card.Body>
         </Card>
-
+        </FadeTransform>
     );
 }
 

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import { Control, LocalForm,Errors } from 'react-redux-form';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from "../shared/baseUrl";
-
+import {FadeTransform,Fade,Staggger} from 'react-animation-components';
 
 
 const required = (val) => (val && val.length);
@@ -16,6 +16,10 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val
 
 function RenderDish(props){
     return(
+    <FadeTransform in 
+            transformProps={{
+                exitTransform: 'scale(0.5) translate(-50%)'
+            }}>
     <Card>
         <Card.Img width="100%" src={baseUrl + props.dish.image} alt={props.dish.name}/>
         <Card.Body>
@@ -23,6 +27,7 @@ function RenderDish(props){
             <Card.Text>{props.dish.description}</Card.Text>
         </Card.Body>
     </Card>
+    </FadeTransform>
     );
 
 } 
