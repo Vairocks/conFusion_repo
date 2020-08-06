@@ -4,14 +4,12 @@ import {Link} from 'react-router-dom';
 import { Control, LocalForm,Errors } from 'react-redux-form';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from "../shared/baseUrl";
-import {FadeTransform,Fade,Staggger} from 'react-animation-components';
+import {FadeTransform} from 'react-animation-components';
 
 
 const required = (val) => (val && val.length);
 const maxLength =(len) => (val) => !(val) || (val.length <= len );
 const minLength =(len) => (val) => !(val) || (val.length >= len );
-const isNumber = (val) => !isNaN(Number(val));
-const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 
 function RenderDish(props){
@@ -144,7 +142,7 @@ class AllComments extends Component {
 
 function DishDetail(props)
 { 
-    if(props.isLoading) {
+    if(props.dishesLoading) {
         return(
             <div className="container">
                 <div className='row'>
@@ -153,7 +151,7 @@ function DishDetail(props)
              </div>   
         )
     }
-    else if(props.errMess) {
+    else if(props.dishesErrMess) {
         return(
             <div className="container">
             <div className='row'>
@@ -164,14 +162,15 @@ function DishDetail(props)
     }
     else if(props.dish!=null){
         return(
-            <div className="container">
+            <>
                 <div className="row-12">
                     <Breadcrumb>
-                        <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem className="offset-5"><Link to='/menu'>Menu</Link></BreadcrumbItem>
                         <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
                             <hr/>
                     </Breadcrumb>
                 </div>
+                <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
                         <RenderDish dish={props.dish}/>
@@ -183,6 +182,7 @@ function DishDetail(props)
                     </div>
                 </div>
             </div>
+            </>
         );
     }
     else{

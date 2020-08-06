@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import {Breadcrumb,BreadcrumbItem, Button, FormLabel, Col,Row} from 'react-bootstrap';
 import {Link} from 'react-router-dom'; 
-import { Control, Form,Errors , actions } from 'react-redux-form';
+import { Control, Form,Errors } from 'react-redux-form';
 
 const required = (val) => {
     console.log(!(val) || (val.length <= 5 ));
@@ -41,23 +41,17 @@ errorFunction(val)
 
 render(){
     return(
-        <div class="container">
-            <div className="row">
+        <>
+            <div className="row-12">
                 <Breadcrumb>
-                    <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>Contact Us</BreadcrumbItem>
-                    <div className="col-12">
-                        <h3>Menu</h3>
-                        <hr/>
-                    </div>
+                    <BreadcrumbItem className="offset-1"><Link to='/home'>Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>Contact Us</BreadcrumbItem>              
                 </Breadcrumb>
             </div>
-        <div class="row row-header mb-0">
-           
-            <div class="col-12">
-                <h3>Contact Us</h3>
+            <h3 className="offset-5">Contact Us</h3>
                 <hr/><br/>
-            </div>                   
+        <div className="container">
+        <div class="row row-header mb-0">        
             <div class="col-12">
                 <h2>Location Information</h2>
             </div>
@@ -83,7 +77,7 @@ render(){
             <div class="col-12 col-md-11 offset-md-1">
                 <div class="btn-group" role="group">
                     <a role="button" class="btn btn-primary" href="tel:+919720647434"><i class="fa fa-phone"> Call us</i></a>
-                    <a role="button" class="btn btn-success" href="#"><i class="fa fa-skype"> Skype</i></a>
+                    <a role="button" class="btn btn-success" href="https://www.linkedin.in/"><i class="fa fa-skype"> Skype</i></a>
                     <a role="button" class="btn btn-primary" href="mailto:vaibhav.garg.334@gmail.com"><i class="fa fa-envelope"> Email</i></a>
                 </div>
             </div>
@@ -230,6 +224,7 @@ render(){
             </div>
         </div>
      </div>
+     </>
     );
   }
 }

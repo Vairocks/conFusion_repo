@@ -1,6 +1,5 @@
 import React from 'react';
 import {Card, Breadcrumb,BreadcrumbItem} from 'react-bootstrap';
-import DishDetail from './Dishdetailcomponent';
 import {Link} from 'react-router-dom';//Link to makeing each card a link or the router the link id will be menu/dishId
 import {Loading} from './LoadingComponent';
 import {baseUrl} from "../shared/baseUrl";
@@ -48,22 +47,20 @@ const Menu = (props) => {
     }
     else 
     return (
-        <div className="container">
-            <div className="row">
+        <>
+            <div className="row-12">
                 <Breadcrumb>
-                    <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem className="offset-1"><Link to='/home'>Home</Link></BreadcrumbItem>
                     <BreadcrumbItem active>Menu</BreadcrumbItem>
-                    <div className="col-12">
-                        <h3>Menu</h3>
-                        <hr/>
-                    </div>
                 </Breadcrumb>
+            </div>            
+            <h3 className="offset-5">Menu</h3><hr/>
+            <div className="container">
+                 <div className="row">
+                    {menu}
+                </div>
             </div>
-            <div className="row">
-                {menu}
-            </div>
-                    
-        </div>
+        </>
     );
 }
     

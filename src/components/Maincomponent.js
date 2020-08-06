@@ -33,10 +33,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Main extends Component {
 
-  constructor(props) {
-    super(props);
-    
-  }
 
   componentDidMount() {
     this.props.fetchDishes();
@@ -63,10 +59,10 @@ render(){
   const DishWithId = ({match}) =>{
     return(
         <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id ===parseInt(match.params.dishId,10))[0]}
-        isLoading={this.props.dishes.isLoading}
-        errMess={this.props.dishes.errMess}
+        dishesLoading={this.props.dishes.isLoading}
+        dishesErrMess={this.props.dishes.errMess}
         comments={this.props.comments.comments.filter((comment) => comment.dishId ===parseInt(match.params.dishId,10))}
-        errMess={this.props.comments.errMess}
+        commentsErrMess={this.props.comments.errMess}
         postComment={this.props.postComment}
         />   
       );

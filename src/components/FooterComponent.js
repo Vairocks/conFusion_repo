@@ -30,9 +30,9 @@ function Footer(props){
 					<div>
 						<a className="btn btn-social-icon btn-google-plus" href="https://www.google.com/" target="_blank" rel="noopener noreferrer"><i className="fa fa-google-plus fa-lg"></i></a>
 						<a className="btn btn-social-icon btn-facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i className="fa fa-facebook fa-lg"></i></a>
-						<a className="btn btn-social-icon btn-linkedin" href="#" target="_blank" rel="noopener noreferrer"><i className="fa fa-linkedin fa-lg"></i></a>
-						<a className="btn btn-social-icon btn-twitter" href="#" target="_blank" rel="noopener noreferrer"><i className="fa fa-twitter fa-lg"></i></a>
-						<a className="btn btn-social-icon btn-youtube" href="#" target="_blank" rel="noopener noreferrer"><i className="fa fa-youtube fa-lg"></i></a>
+						<a className="btn btn-social-icon btn-linkedin" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"><i className="fa fa-linkedin fa-lg"></i></a>
+						<a className="btn btn-social-icon btn-twitter" href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer"><i className="fa fa-twitter fa-lg"></i></a>
+						<a className="btn btn-social-icon btn-youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"><i className="fa fa-youtube fa-lg"></i></a>
 						<a className="btn btn-social-icon btn-envelope" href="mailto:vaibhav.garg.334@gmail.com" target="_blank" rel="noopener noreferrer"><i className="fa fa-envelope fa-lg"></i></a>
 					</div>
 				</div>
