@@ -1,10 +1,12 @@
 import React from 'react';
 import {Card,Table} from 'react-bootstrap';
+import {Loading} from './LoadingComponent';
+import {baseUrl2} from '../shared/baseUrl';
 
 function LeaderCard({leader})
 {
     return(<>
-        <img src={leader.image} alt={leader.name} className="col-8 col-sm-6 col-md-4 col-lg-2"/>
+        <img src={baseUrl2 + leader.image} alt={leader.name} className="col-8 col-sm-6 col-md-4 col-lg-2"/>
         <div className="col-auto"></div>
         <div className="col-12 col-md-7 col-lg-9">
         <h5>{leader.name}<small>     {leader.designation}</small></h5>                                    
@@ -16,7 +18,7 @@ function LeaderCard({leader})
 
 function ShowLeaders({leaders})
 {
-    const leaderWall = leaders.map((leader) => {
+    const leaderWall = leaders.leaders.map((leader) => {
         return (
             <div key={leader.id} className="row cardlike">
                 <LeaderCard leader = {leader} />
@@ -24,7 +26,25 @@ function ShowLeaders({leaders})
         );
     });
 
-    return(
+    if(leaders.isLoading) {
+        return(
+            <div className="container">
+                <div className='row'>
+                    <Loading />
+                </div>
+             </div>   
+        )
+    }
+    else if(leaders.errMess) {
+        return(
+            <div className="container">
+            <div className='row'>
+                <h4>{leaders.errMess}</h4>
+            </div>
+         </div>
+        );
+    }
+    else return(
         <div className="row text-align-center">
             <h2>Corporate Leadership</h2>
             {leaderWall}
@@ -34,7 +54,7 @@ function ShowLeaders({leaders})
     }
 
 
-function About({leaders}){
+function About(props){
     return(
         <div class="container">
         <div class="row row-content align-self-center">
@@ -67,7 +87,9 @@ function About({leaders}){
         </div>
     </div>   
     <hr />
-    <ShowLeaders leaders={leaders}/>
+
+    <ShowLeaders leaders={props.leaders}/>
+
     <hr/>
 
         <div class="row row-content">

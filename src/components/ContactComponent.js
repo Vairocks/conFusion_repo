@@ -24,9 +24,8 @@ class Contact extends Component {
     }
 
 handleSubmit(values){
-    console.log("Current State is: "+JSON.stringify(values));
-    alert("Current State is: " +JSON.stringify(values));
-    this.props.reset();
+    this.props.postFeedback(values.firstname,values.lastname,values.telnum,values.email,values.agree,values.contactType,values.message);
+    this.props.resetFeedbackForm();
 }
 
 //no need for validate saperately becuse that would be done by react-redux on our behalf
@@ -108,7 +107,7 @@ render(){
                             />
                            <Errors
                                 className="errors"
-                                model= "firstname"
+                                model= ".firstname"
                                 show="touched"
                                 messages={{
                                     required: 'Required',
@@ -130,8 +129,7 @@ render(){
                             />
                            <Errors
                                 className="errors"
-                                wrapper={'p'}
-                                model="lastname"
+                                model=".lastname"
                                 show="touched"
                                 messages={{
                                     required: 'Required',
@@ -148,7 +146,7 @@ render(){
                             name="telnum" placeholder="Tel. Number"
                             className="form-control" 
                             validators={{
-                                required, minLength: minLength(3), maxLength: maxLength(15),isNumber
+                                required, minLength: minLength(8), maxLength: maxLength(15),isNumber
                             }}
                             />
                           <Errors
@@ -157,7 +155,7 @@ render(){
                                 show="touched"
                                 messages={{
                                     required: 'Required',
-                                    minLength: 'Must be greater than 2 numbers',
+                                    minLength: 'Must be greater than 8 numbers',
                                     maxLength: 'Must be 15 numbers or less',
                                     isNumber: 'Must be a number'
                                 }}

@@ -8,8 +8,8 @@ function RenderMenuItem({dish, onClick})
 {
     return(
         <Card>
-        <Link to={`/menu/${dish.id}`}>
-        <Card.Img width="100%" src={baseUrl + dish.image} alt={dish.name}/>
+        <Link to={`/menu/${dish._id}`}>
+        <Card.Img width="100%" src={dish.image} alt={dish.name}/>
         <Card.ImgOverlay>
             <Card.Title>{dish.name}</Card.Title>
         </Card.ImgOverlay>

@@ -4,6 +4,9 @@ import { Dishes } from './dishes';
 import { Comments } from './comments';
 import { Leaders } from './leaders';
 import { Promos } from './promotions';
+import { Feeds } from './feeds';
+import { Authentication} from './userLogin';
+import{registration} from './userRegis';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './forms';
@@ -11,10 +14,13 @@ import { InitialFeedback } from './forms';
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
+            registration: registration, 
+            authentication: Authentication,
             dishes: Dishes,
             comments: Comments,
             promos: Promos,
             leaders: Leaders,
+            feeds: Feeds,
             ...createForms({
                 feedback: InitialFeedback
             })

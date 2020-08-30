@@ -3,7 +3,7 @@ import {Card,Breadcrumb,BreadcrumbItem,Button,Modal, FormLabel, Col,Row} from 'r
 import {Link} from 'react-router-dom';
 import { Control, LocalForm,Errors } from 'react-redux-form';
 import {Loading} from './LoadingComponent';
-import {baseUrl} from "../shared/baseUrl";
+import {baseUrl2} from "../shared/baseUrl";
 import {FadeTransform} from 'react-animation-components';
 
 
@@ -13,13 +13,18 @@ const minLength =(len) => (val) => !(val) || (val.length >= len );
 
 
 function RenderDish(props){
+    if(props.dish==null)
+    {
+        return(<div>Dish is null</div>);
+    }
+    else{
     return(
     <FadeTransform in 
             transformProps={{
                 exitTransform: 'scale(0.5) translate(-50%)'
             }}>
     <Card>
-        <Card.Img width="100%" src={baseUrl + props.dish.image} alt={props.dish.name}/>
+        <Card.Img width="100%" src={props.dish.image} alt={props.dish.name}/>
         <Card.Body>
             <Card.Title>{props.dish.name}</Card.Title>
             <Card.Text>{props.dish.description}</Card.Text>
@@ -27,6 +32,8 @@ function RenderDish(props){
     </Card>
     </FadeTransform>
     );
+}
+
 
 } 
 
@@ -40,9 +47,9 @@ class AllComments extends Component {
         }
     }
     
-    handleSubmit(values){
+        handleSubmit(values){
         this.setModalShow(false);
-        this.props.postComment(this.props.dishId,values.ratings,values.fullname,values.message) 
+        this.props.postComment(this.props.dishId,values.ratings,values.message) 
         console.log("Current State is: "+JSON.stringify(values));
         alert("Current State is: " +JSON.stringify(values));
     }
@@ -57,17 +64,23 @@ class AllComments extends Component {
     const comms = this.props.comments.map((commt) => {
         return (
             <>
-              <span className="col-6">  {commt.author} </span><span className="col-auto"></span> ,<span className="col-5"><h6>{commt.rating} <i className="fa fa-star fa-lg"></i> -*Date</h6></span>
-              <p><cite>-{commt.comment}</cite></p>         
-            </>
+            <div className="row"><cite className="col-10">-{commt.comment}</cite>
+            
+            { this.props.login_status.loggedIn && this.props.login_status.username==commt.author.username &&
+            <span className="col-2 fa fa-trash-o" onClick={() => this.props.deleteComment(this.props.dishId,commt._id)}></span>}
+            
+            <span className="col-6"><h6>{commt.rating} <i className="fa fa-star fa-lg"></i> -*Date</h6></span>
+            <span className="col-auto"></span>
+            <span className="col">  {commt.author.username} </span></div>
+            </>  
         );
     });
-    
+
     return(
       <Card>
         <Card.Body>
           <Card.Title>Comment</Card.Title>
-          <Card.Text className="container">{comms}</Card.Text>     
+          <Card.Text>{comms}</Card.Text>     
           <Button variant="outline-dark" onClick={() => this.setModalShow(true)}>
           <span className="fa fa-pencil"></span> Comment</Button>
             
@@ -89,27 +102,6 @@ class AllComments extends Component {
                                 <option>1</option>
                             </Control.select>
                         </Col>
-                  </Row>
-                  <Row className="form-group">
-                    <FormLabel htmlFor="fullname" >First name:</FormLabel>
-                    <Col md={9}>
-                        <Control.text model=".fullname" className="form-control" id="fullname" 
-                         name="fullname" placeholder="Your Full Name"    
-                         validators={{
-                                        required, minLength: minLength(3), maxLength: maxLength(25)
-                                    }}
-                        />
-                        <Errors
-                            className="errors"
-                            model= ".fullname"
-                            show="touched"
-                            messages={{
-                                required: 'Required',
-                                minLength: 'Must be greater than 2 characters',
-                                maxLength: 'Must be 25 characters or less'
-                                }} 
-                        />
-                    </Col>
                   </Row>
                   <Row className="form-group">
                         <FormLabel htmlFor="message" md={2}>Your Comment:</FormLabel>
@@ -175,10 +167,13 @@ function DishDetail(props)
                     <div className="col-12 col-md-5 m-1">
                         <RenderDish dish={props.dish}/>
                     </div>
-                    <div className="col-12 col-md-5 m-1">
-                        <AllComments comments={props.comments} 
+                    <div className="col-12 col-md-5">
+                        <AllComments comments={props.dish.comments} 
                         postComment={props.postComment}
-                        dishId={props.dish.id}/>
+                        dishId={props.dish._id}
+                        deleteComment = {props.deleteComment}
+                        login_status= {props.login_status}
+                        />
                     </div>
                 </div>
             </div>
@@ -194,3 +189,26 @@ function DishDetail(props)
 
     
 export default DishDetail;
+
+{/*
+                  <Row className="form-group">
+                    <FormLabel htmlFor="fullname" >First name:</FormLabel>
+                    <Col md={9}>
+                        <Control.text model=".fullname" className="form-control" id="fullname" 
+                         name="fullname" placeholder="Your Full Name"    
+                         validators={{
+                                        required, minLength: minLength(3), maxLength: maxLength(25)
+                                    }}
+                        />
+                        <Errors
+                            className="errors"
+                            model= ".fullname"
+                            show="touched"
+                            messages={{
+                                required: 'Required',
+                                minLength: 'Must be greater than 2 characters',
+                                maxLength: 'Must be 25 characters or less'
+                                }} 
+                        />
+                    </Col>
+                            </Row>*/}
