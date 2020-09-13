@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Main from './components/Maincomponent';
+import Login from './components/LoginComponent';
 import './App.css';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
@@ -14,7 +14,7 @@ class App extends Component {
     <Provider store={store}>
     <BrowserRouter>
     <div>
-      <Main />  
+      <Login />  
     </div>
     </BrowserRouter>
     </Provider>
